@@ -1,0 +1,133 @@
+<div class="country">
+  <p-table
+    #dt
+    [value]="filteredCountries"
+    [(selection)]="filteredCountries"
+    dataKey="id"
+    styleClass="p-datatable-customers"
+    [rowHover]="true"
+    [rows]="8"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[8, 10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0"
+    [globalFilterFields]="['name', 'region', 'area']"
+    selectionMode="multiple"
+  >
+    <br />
+    <ng-template pTemplate="caption" let-country>
+      <div class="flex">
+        <div class="btn">
+          <div>
+            <button
+              pButton
+              label="Clear"
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+              (click)="clear(dt)"
+            ></button>
+          </div>
+          <div>
+            <h4>
+              This button clears filters which applied from column headers.
+            </h4>
+          </div>
+        </div>
+
+        <span class="p-input-icon-left ml-auto">
+          <div>
+            <div>
+              <p-checkbox
+                [binary]="true"
+                inputId="ocenia"
+                [(ngModel)]="isOceaniaOnly"
+                (onChange)="updateFilteredCountries()"
+              ></p-checkbox>
+              <label for="ocenia">Shows only Oceania region countries.</label>
+            </div>
+            <div>
+              <p-checkbox
+                [binary]="true"
+                inputId="lithuania"
+                [(ngModel)]="isLessThanLithuania"
+                (onChange)="updateFilteredCountries()"
+              ></p-checkbox>
+              <label for="lithuania"
+                >Show countries with area less than Lithuania.</label
+              >
+            </div>
+          </div>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" class="header">
+      <tr>
+        <th pSortableColumn="name" style="width: 33%">
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Name
+            <p-sortIcon field="name"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+              [showAddButton]="false"
+              class="p-ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="region" #region style="width: 33%">
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Region
+            <p-sortIcon field="region"></p-sortIcon>
+            <p-columnFilter
+              type="text"
+              field="region"
+              display="menu"
+              [showAddButton]="false"
+              class="p-ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+
+        <th pSortableColumn="area" style="width: 33%">
+          <div class="p-d-flex p-jc-between p-ai-center">
+            Area
+            <p-sortIcon field="area"></p-sortIcon>
+            <p-columnFilter
+              type="numeric"
+              field="area"
+              display="menu"
+              class="p-ml-auto"
+            ></p-columnFilter>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-countries>
+      <tr class="p-selectable-row">
+        <td>
+          <span class="p-column-title">Name</span>
+          {{ countries.name }}
+        </td>
+
+        <td>
+          <span class="p-column-title">Region</span>
+
+          <span class="image-text">{{ countries.region }}</span>
+        </td>
+
+        <td>
+          {{ countries.area || 0 }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

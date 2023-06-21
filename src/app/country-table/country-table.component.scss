@@ -1,0 +1,27 @@
+.country {
+  width: 70vw;
+  margin: auto;
+  border: 2px solid green;
+
+  .flex {
+    justify-content: space-around;
+
+    .btn {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      button {
+        text-align: center;
+        justify-content: center;
+
+        .p-button-outlined {
+          padding: 0;
+
+          p-button {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+}
